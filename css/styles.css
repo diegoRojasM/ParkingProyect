@@ -1,0 +1,642 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    
+    background-image: url(https://lh3.googleusercontent.com/p/AF1QipMkR8T5MN1ob4vz5XJVzwsRvS8Si2DiuXW8Rlmq=s680-w680-h510);
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que se repita la imagen */
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco semi-transparente */
+    width: 100%;
+}
+*{
+    /* border: 2px #000000 solid; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#mainheader h1 {
+    /* margin-top: 20px;
+    margin-bottom: 20px; */
+    color: #fff;
+    font-size: 100px;
+    /* margin: 0 0 0 500px; */
+}
+#mainheader{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly; /*para que se alinee a la izquierda*/
+}
+
+#mainheader img{
+    width: 100%;
+}
+#counter{
+    float: right; 
+    margin-top: 20px; 
+    font-size: 2.4em;
+    color: white;
+
+}
+form {
+    margin-bottom: 20px;
+}
+.container{
+    padding: 0px 30px;
+   
+}
+
+
+.parking-map {
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* Aumentar columnas */
+    grid-template-rows: repeat(8, 1fr); /* Aumentar filas */
+    gap: 10px;
+    position: relative;
+    border: 2px solid #333;
+    background-color: rgba(255, 255, 255, .5); /* Fondo blanco semi-transparente */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.parking-map .grid-cell {
+    /*width: 130px; /* Ajusta el ancho de cada celda */
+    /*height: 90px; /* Ajusta la altura de cada celda */
+    background-color: rgb(93, 230, 93); /* Verde por defecto */
+    border: 1px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    position: relative;
+    background-image: url(https://img.icons8.com/?size=100&id=52126&format=png&color=000000);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%; /*o cover*/
+
+}
+
+.parking-map .grid-cell img{
+    width: 10px;
+    height: 10px;
+}
+
+.parking-map .grid-cell.pasillo {
+    background-color: #666; /* Color de pavimento */
+    cursor: default;
+}
+
+.parking-map .grid-cell:hover {
+    background-color: #bf5555;
+}
+
+.parking-map .grid-cell .cell-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+.car {
+    width: 100%;
+    height: 100%;
+    background-color: red; /* Rojo cuando hay un auto */
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.car .license {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.selected-cell {
+    background-color: #ffcc00;
+}
+
+/* Estilos para la ventana emergente */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.modal-content2 {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos para el título */
+h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 36px; /* Tamaño de fuente más grande */
+    font-family: 'Arial Black', sans-serif; /* Fuente más llamativa */
+}
+
+/* Estilos para el botón de agregar auto */
+.agregarAuto {
+    background-color: #4CAF50; /* Color de fondo verde */
+    border: none;
+    color: white;
+    padding: 20px 32px; /* Padding más grande */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 23px;
+    margin: 20px 2px;
+    cursor: pointer;
+    border-radius: 10px; /* Bordes redondeados */
+    transition-duration: 0.4s; /* Animación de transición */
+}
+
+.agregarAuto:hover {
+    background-color: #45a049; /* Cambio de color al pasar el mouse */
+}
+
+/* Estilos para el botón de eliminar autos */
+#eliminarAutos {
+    background-color: #f44336; /* Color de fondo rojo */
+    border: none;
+    color: white;
+    padding: 20px 32px; /* Padding más grande */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 23px;
+    margin: 40px 2px;
+    cursor: pointer;
+    border-radius: 10px; /* Bordes redondeados */
+    transition-duration: 0.4s; /* Animación de transición */
+}
+
+#eliminarAutos:hover {
+    background-color: #d32f2f; /* Cambio de color al pasar el mouse */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos para la ventana emergente */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.modal-content2 {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados */
+    width: 80%;
+    max-width: 400px;
+    border: 2px solid #333;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+#car-form {
+    margin-top: 20px;
+    text-align: left; /* Alineación del formulario */
+}
+
+#car-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+#car-form input[type="text"],
+#car-form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#car-form button[type="submit"] {
+    background-color: #4CAF50; /* Color de fondo verde */
+    border: none;
+    color: white;
+    padding: 10px 20px; /* Padding más grande */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    transition-duration: 0.4s; /* Animación de transición */
+}
+
+#car-form button[type="submit"]:hover {
+    background-color: #45a049; /* Cambio de color al pasar el mouse */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar {
+    background-color: rgba(244, 67, 54, 0.7); 
+    overflow: hidden; 
+    padding: 25px; 
+}
+    
+.navbar .left {
+    float: left; 
+}
+
+.navbar .right {
+    float: right; 
+    padding: 20px;
+}
+
+.navbar h1 {
+    margin: 0;
+    color: white; 
+    font-size: 36px; 
+}
+
+.navbar a {
+    color: white; 
+    text-decoration: none; 
+    margin-left: 20px; 
+    font-size: 25px;
+}
+
+.navbar a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+
+/* Estilos para los div con la clase .grid-cell y data-index del 40 al 45 */
+.parking-map .grid-cell.pasillo[data-index="40"],
+.parking-map .grid-cell.pasillo[data-index="41"],
+.parking-map .grid-cell.pasillo[data-index="42"],
+.parking-map .grid-cell.pasillo[data-index="43"],
+.parking-map .grid-cell.pasillo[data-index="44"],
+.parking-map .grid-cell.pasillo[data-index="45"],
+.parking-map .grid-cell.pasillo[data-index="52"],
+.parking-map .grid-cell.pasillo[data-index="53"],
+.parking-map .grid-cell.pasillo[data-index="54"],
+.parking-map .grid-cell.pasillo[data-index="55"],
+.parking-map .grid-cell.pasillo[data-index="56"],
+.parking-map .grid-cell.pasillo[data-index="57"]{
+    /* Estilos que deseas aplicar a los div con la clase .grid-cell y data-index del 40 al 45 */
+    background-color: #3f51b5; /* Azul índigo */
+    color: white; /* Cambiar el color del texto a blanco */
+    /* Agrega cualquier otro estilo que necesites */
+    background-image: none;
+}
+
+
+
+.parking-map .grid-cell.pasillo[data-index="95"]
+ {
+    /* Estilos para el div con la clase .grid-cell y data-index="40" */
+    color: white; /* Color del texto */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    font-size: 56px; /* Tamaño del icono */
+    background-image: none;
+}
+
+.parking-map .grid-cell.pasillo[data-index="95"]::before
+ {
+    /* Estilos para el icono */
+    content: "\1F815"; /* Unicode del icono que desees */
+    font-size: inherit; /* Tamaño del icono igual al tamaño del div */
+    background-image: none;
+}
+
+
+.parking-map .grid-cell.pasillo[data-index="83"],
+.parking-map .grid-cell.pasillo[data-index="71"],
+.parking-map .grid-cell.pasillo[data-index="59"],
+.parking-map .grid-cell.pasillo[data-index="47"],
+.parking-map .grid-cell.pasillo[data-index="35"],
+.parking-map .grid-cell.pasillo[data-index="74"],
+.parking-map .grid-cell.pasillo[data-index="62"],
+.parking-map .grid-cell.pasillo[data-index="50"],
+.parking-map .grid-cell.pasillo[data-index="38"],
+.parking-map .grid-cell.pasillo[data-index="26"]
+{
+    color: white; /* Color del texto */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    font-size: 56px; /* Tamaño del icono */
+    background-image: none;
+}
+
+.parking-map .grid-cell.pasillo[data-index="83"]::before,
+.parking-map .grid-cell.pasillo[data-index="71"]::before,
+.parking-map .grid-cell.pasillo[data-index="59"]::before,
+.parking-map .grid-cell.pasillo[data-index="47"]::before,
+.parking-map .grid-cell.pasillo[data-index="35"]::before,
+.parking-map .grid-cell.pasillo[data-index="74"]::before,
+.parking-map .grid-cell.pasillo[data-index="62"]::before,
+.parking-map .grid-cell.pasillo[data-index="50"]::before,
+.parking-map .grid-cell.pasillo[data-index="38"]::before,
+.parking-map .grid-cell.pasillo[data-index="26"]::before{
+    content: "⇅"; /* Unicode del icono que desees */
+    font-size: inherit; /* Tamaño del icono igual al tamaño del div */
+    background-image: none;
+}
+
+
+
+.parking-map .grid-cell.pasillo[data-index="86"]
+ {
+    /* Estilos para el div con la clase .grid-cell y data-index="40" */
+    color: white; /* Color del texto */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    font-size: 56px; /* Tamaño del icono */
+    background-image: none;
+}
+
+.parking-map .grid-cell.pasillo[data-index="86"]::before
+ {
+    /* Estilos para el icono */
+    content: "🠗"; /* Unicode del icono que desees */
+    font-size: inherit; /* Tamaño del icono igual al tamaño del div */
+    background-image: none;
+}
+
+
+
+
+.parking-map .grid-cell.pasillo[data-index="75"],
+.parking-map .grid-cell.pasillo[data-index="76"],
+.parking-map .grid-cell.pasillo[data-index="77"],
+.parking-map .grid-cell.pasillo[data-index="78"],
+.parking-map .grid-cell.pasillo[data-index="79"],
+.parking-map .grid-cell.pasillo[data-index="80"],
+.parking-map .grid-cell.pasillo[data-index="81"],
+.parking-map .grid-cell.pasillo[data-index="82"],
+.parking-map .grid-cell.pasillo[data-index="15"],
+.parking-map .grid-cell.pasillo[data-index="16"],
+.parking-map .grid-cell.pasillo[data-index="17"],
+.parking-map .grid-cell.pasillo[data-index="18"],
+.parking-map .grid-cell.pasillo[data-index="19"],
+.parking-map .grid-cell.pasillo[data-index="20"],
+.parking-map .grid-cell.pasillo[data-index="21"],
+.parking-map .grid-cell.pasillo[data-index="22"]
+
+{
+    color: white; /* Color del texto */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    font-size: 56px; /* Tamaño del icono */
+    background-image: none;
+}
+
+.parking-map .grid-cell.pasillo[data-index="75"]::before,
+.parking-map .grid-cell.pasillo[data-index="76"]::before,
+.parking-map .grid-cell.pasillo[data-index="77"]::before,
+.parking-map .grid-cell.pasillo[data-index="78"]::before,
+.parking-map .grid-cell.pasillo[data-index="79"]::before,
+.parking-map .grid-cell.pasillo[data-index="80"]::before,
+.parking-map .grid-cell.pasillo[data-index="81"]::before,
+.parking-map .grid-cell.pasillo[data-index="82"]::before,
+.parking-map .grid-cell.pasillo[data-index="15"]::before,
+.parking-map .grid-cell.pasillo[data-index="16"]::before,
+.parking-map .grid-cell.pasillo[data-index="17"]::before,
+.parking-map .grid-cell.pasillo[data-index="18"]::before,
+.parking-map .grid-cell.pasillo[data-index="19"]::before,
+.parking-map .grid-cell.pasillo[data-index="20"]::before,
+.parking-map .grid-cell.pasillo[data-index="21"]::before,
+.parking-map .grid-cell.pasillo[data-index="22"]::before{
+    content: "⇄"; /* Unicode del icono que desees */
+    font-size: inherit; /* Tamaño del icono igual al tamaño del div */
+    background-image: none;
+}
+
+
+
+
+.parking-map .grid-cell.pasillo[data-index="14"]{
+    color: white; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 56px; 
+    background-image: none;
+}
+.parking-map .grid-cell.pasillo[data-index="14"]::before
+ {
+    content: "⇅";
+    font-size: inherit;
+    background-image: none;
+}
+
+.parking-map .grid-cell.pasillo[data-index="23"]{
+    color: white; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 56px; 
+    background-image: none;
+}
+.parking-map .grid-cell.pasillo[data-index="23"]::before
+ {
+    content: "⇅";
+    font-size: inherit;
+    background-image: none;
+}
+
+
+/*RESPONSIVE*/
+@media screen and (max-width: 768px){
+    #mainheader .container{
+        flex-direction: column;
+        padding-top: 20px;
+        text-align: center;
+    }
+}
